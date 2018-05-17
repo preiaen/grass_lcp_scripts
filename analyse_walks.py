@@ -2,7 +2,6 @@
 
 import grass.script as gscript
 from grass.pygrass.raster import RasterRow
-
 from grass.pygrass.vector import VectorTopo
 
 from lcp.MapAnalyser import MapAnalyser
@@ -14,35 +13,36 @@ def main():
     # analyse_patch(prefix = 'walk_roads_ad_hydro_e_')
     # analyse_patch(prefix = 'walk_roads_f1_ad_hydro_ox_e_')
     # analyse_patch(prefix = 'walk_roads_f1_ad_hydro_e_')
-    analyse_single_lcp(prefix = 'walk_roads_ad_hydro_ox_e_')
-    analyse_single_lcp(prefix = 'walk_roads_da_hydro_ox_e_')
-    analyse_single_lcp(prefix = 'walk_roads_ad_hydro_e_')
-    analyse_single_lcp(prefix = 'walk_roads_da_hydro_e_')
-    analyse_single_lcp(prefix = 'walk_roads_f1_ad_hydro_ox_e_')
-    analyse_single_lcp(prefix = 'walk_roads_f1_da_hydro_ox_e_')
-    analyse_single_lcp(prefix = 'walk_roads_f1_ad_hydro_e_')
-    analyse_single_lcp(prefix = 'walk_roads_f1_da_hydro_e_')
+    analyse_single_lcp(prefix='walk_roads_ad_hydro_ox_e_')
+    analyse_single_lcp(prefix='walk_roads_da_hydro_ox_e_')
+    analyse_single_lcp(prefix='walk_roads_ad_hydro_e_')
+    analyse_single_lcp(prefix='walk_roads_da_hydro_e_')
+    analyse_single_lcp(prefix='walk_roads_f1_ad_hydro_ox_e_')
+    analyse_single_lcp(prefix='walk_roads_f1_da_hydro_ox_e_')
+    analyse_single_lcp(prefix='walk_roads_f1_ad_hydro_e_')
+    analyse_single_lcp(prefix='walk_roads_f1_da_hydro_e_')
 
 
 def analyse_patch(prefix):
-    #gscript.run_command('g.region', flags='p')
+    # gscript.run_command('g.region', flags='p')
     sum = 0
     sum_length = 0
     analyser = MapAnalyser()
     for i in xrange(30):
         map = prefix + str(i) + '_walk_lcp'
         v_map = 'v_' + map
-        values = analyser.analyseLcpMap(map,v_map)
+        values = analyser.analyseLcpMap(map, v_map)
         sum += values.cost
         sum_length += values.length
 
     printResults(prefix, sum, sum_length)
 
+
 def analyse_single_lcp(prefix):
     map_name = prefix + '_walk_lcp'
     v_map_name = map_name
     analyser = MapAnalyser()
-    values = analyser.analyseLcpMap(map_name,v_map_name)
+    values = analyser.analyseLcpMap(map_name, v_map_name)
     printResults(prefix, values.cost, values.length)
 
 
